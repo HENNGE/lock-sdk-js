@@ -1,0 +1,38 @@
+{
+  "name": "@hennge/lock-sdk-js",
+  "version": "0.0.1",
+  "description": "TypeScript SDK for setting up HENNGE Lock",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm tsdown && pnpm compile:iife && pnpm rename && pnpm minify && pnpm check-types",
+    "compile:iife": "tsc --project tsconfig.iife.json",
+    "rename": "mv ./.cache/iife/index.js dist/hennge-lock-sdk.js",
+    "minify": "terser dist/hennge-lock-sdk.js -o dist/hennge-lock-sdk.min.js --compress --mangle",
+    "check-types": "attw --pack ."
+  },
+  "exports": {
+    ".": {
+      "require": {
+        "require": "./dist/index.cjs",
+        "types": "./dist/index.d.ts"
+      },
+      "import": {
+        "import": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      }
+    }
+  },
+  "keywords": [],
+  "author": "HENNGE",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.10.0",
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.1",
+    "terser": "5.39.2",
+    "tsdown": "0.11.11",
+    "typescript": "5.8.3"
+  }
+}

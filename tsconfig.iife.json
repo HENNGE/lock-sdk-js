@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES5", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "lib": [
+      "ES2015",
+      "DOM"
+    ],
+    /* Modules */
+    "module": "UMD", /* Specify what module code is generated. */
+    "outDir": "./.cache/iife",
+  },
+  "files": ["./src/index.ts"]
+}
