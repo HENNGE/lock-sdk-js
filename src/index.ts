@@ -11,7 +11,12 @@ export type Result<T, E> = [true, T] | [false, E];
 type Option<T> = [true, T] | [false];
 
 /**
- * Configuration data returned after a successful setup.
+ * Response from the users device to a setup request.
+ * The digits must be verified on the server and the
+ * Setup Complete endpoint of the HENNGE Lock Server
+ * must be called with the verification result.
+ * The device type is informational and may be stored
+ * to provide a better user experience.
  */
 export interface Setup {
 	digits: string;
@@ -48,13 +53,14 @@ export type LockError = TimeoutError | HttpError | UnknownError;
 
 /**
  * Initiates the setup process by making requests to the provided URL.
- * Continues polling until a valid response is received.
+ * Continues polling until a valid response is received or the operation
+ * times out.
  *
- * @param url The endpoint to call for setup
+ * @param url Returned from the Setup Init endpoint of the HENNGE Lock Server
  * @returns A Result containing either Setup data or an error
  */
 export async function setup(url: string): Promise<Result<Setup, LockError>> {
-	return await _fetch_loop(url, (status, value) => {
+	return await fetchLoop(url, (status, value) => {
 		switch (status) {
 			case "done":
 				return [true, { digits: value.digits, deviceType: value.device_type }];
@@ -65,7 +71,10 @@ export async function setup(url: string): Promise<Result<Setup, LockError>> {
 }
 
 /**
- * Represents a successful authentication.
+ * Indicates the user accepted the authentication request.
+ * The provided digits must be verified on the server and
+ * result must be communicated to Login Complete endpoint
+ * of the HENNGE Lock Server.
  */
 export interface Accepted {
 	result: "accepted";
@@ -73,7 +82,9 @@ export interface Accepted {
 }
 
 /**
- * Represents a rejected authentication attempt.
+ * Indicates the user rejected the authentication request.
+ * The current authentication flow must not be allowed
+ * to continue.
  */
 export interface Rejected {
 	result: "rejected";
@@ -85,14 +96,15 @@ export interface Rejected {
 export type Auth = Accepted | Rejected;
 
 /**
- * Authenticates with the provided URL.
- * Continues polling until authentication is either accepted or rejected.
+ * Waits for the users response to a HENNGE Lock notification.
+ * Polls until the user accepted or rejected the request, or
+ * the request times out.
  *
- * @param url The endpoint to call for authentication
+ * @param url Returned from the login init endpoint of the HENNGE Lock Server
  * @returns A Result containing either Auth data or an error
  */
 export async function auth(url: string): Promise<Result<Auth, LockError>> {
-	return await _fetch_loop<Auth>(url, (status, value) => {
+	return await fetchLoop<Auth>(url, (status, value) => {
 		switch (status) {
 			case "done":
 				return [true, { result: "accepted", digits: value.digits }];
@@ -112,12 +124,12 @@ export async function auth(url: string): Promise<Result<Auth, LockError>> {
  * @param handler A function that processes response data and determines the next action
  * @returns A Result containing either the expected data or an error
  */
-async function _fetch_loop<T>(
+async function fetchLoop<T>(
 	url: string,
-	handler: (status: any, value: any) => Option<T>,
+	handler: (status: string, value: T) => Option<T>,
 ): Promise<Result<T, LockError>> {
 	while (true) {
-		const [ok, data] = await _fetch(url);
+		const [ok, data] = await fetchWrapper(url);
 		if (!ok) {
 			return [false, data];
 		}
@@ -143,7 +155,7 @@ async function _fetch_loop<T>(
  * @param url The endpoint to call
  * @returns A Result containing either the response data or an error
  */
-async function _fetch(url: string): Promise<Result<any, LockError>> {
+async function fetchWrapper<T>(url: string): Promise<Result<T, LockError>> {
 	try {
 		const response = await fetch(url);
 		if (response.status !== 200) {
