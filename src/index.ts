@@ -1,4 +1,5 @@
-import { z } from "zod/v4-mini";
+import { string as zstring, object as zobject, discriminatedUnion, literal } from "zod/v4-mini";
+import type {ZodMiniType, output} from "zod/v4-mini";
 
 /**
  * A Result type representing either a successful operation with data T,
@@ -47,18 +48,18 @@ export interface UnknownError {
  */
 export type LockError = TimeoutError | HttpError | UnknownError;
 
-const Pending = z.object({
-	status: z.literal("pending"),
+const Pending = zobject({
+	status: literal("pending"),
 });
-const Timeout = z.object({
-	status: z.literal("timeout"),
+const Timeout = zobject({
+	status: literal("timeout"),
 });
-const CommonResponses = z.discriminatedUnion("status", [Pending, Timeout]);
+const CommonResponses = discriminatedUnion("status", [Pending, Timeout]);
 
-const SetupDone = z.object({
-	status: z.literal("done"),
-	digits: z.string(),
-	device_type: z.string(),
+const SetupDone = zobject({
+	status: literal("done"),
+	digits: zstring(),
+	device_type: zstring(),
 });
 
 /**
@@ -100,14 +101,14 @@ export interface Rejected {
  */
 export type Auth = Accepted | Rejected;
 
-const AcceptedResponse = z.object({
-	status: z.literal("done"),
-	digits: z.string(),
+const AcceptedResponse = zobject({
+	status: literal("done"),
+	digits: zstring(),
 });
-const RejectedResponse = z.object({
-	status: z.literal("rejected"),
+const RejectedResponse = zobject({
+	status: literal("rejected"),
 });
-const AuthResponse = z.discriminatedUnion("status", [
+const AuthResponse = discriminatedUnion("status", [
 	AcceptedResponse,
 	RejectedResponse,
 ]);
@@ -140,10 +141,10 @@ export async function auth(url: string): Promise<Result<Auth, LockError>> {
  * @param handler A function that processes response data and determines the next action
  * @returns A Result containing either the expected data or an error
  */
-async function fetchLoop<T, Schema extends z.ZodMiniType>(
+async function fetchLoop<T, Schema extends ZodMiniType>(
 	url: string,
 	schema: Schema,
-	handler: (value: z.output<Schema>) => T,
+	handler: (value: output<Schema>) => T,
 ): Promise<Result<T, LockError>> {
 	while (true) {
 		const [ok, data] = await fetchWrapper(url);
