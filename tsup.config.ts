@@ -8,4 +8,5 @@ export default defineConfig({
 	clean: false,
 	minify: false,
 	treeshake: true,
+	globalName: 'HENNGE.Lock',
 });
