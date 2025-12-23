@@ -33,7 +33,7 @@
 				"import": "./dist/index.js"
 			}
 		},
-		"./global": "./dist/index.glo2bal.js"
+		"./global": "./dist/index.global.js"
 	},
 	"files": [
 		"dist"
