@@ -7,6 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
+  check-changeset:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check for changeset
+        run: npx changelog-status
+
   build:
     runs-on: ubuntu-latest
 
