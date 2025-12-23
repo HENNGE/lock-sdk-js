@@ -33,6 +33,7 @@ Because this package is hosted on **GitHub Packages** and not the public npm reg
 
     ```
     pnpm add @HENNGE/lock-sdk-js
+    // OR
     pnpm install
     ```
 
@@ -48,10 +49,15 @@ const [status, response] = await auth(url);
 
 This repository uses **Changesets** to manage versioning and releases.
 
-### Making a contribution
+### Contribution Flow
 
 1. Create a branch and make your changes.
 2. Run the following command before committing:
+
+    ```
+    pnpm changeset
+    ```
+
 3. Follow the prompts to select the impact (patch, minor, major) and provide a description.
 4. Commit the generated `.md` file in the `.changeset` folder.
 
