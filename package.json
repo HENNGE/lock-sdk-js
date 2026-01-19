@@ -22,8 +22,7 @@
 		"check": "biome check",
 		"fix": "biome check --write --unsafe",
 		"prepublishOnly": "pnpm build",
-		"publish": "pnpm changeset publish",
-		"version": "pnpm changeset version"
+		"publish": "pnpm changeset publish"
 	},
 	"exports": {
 		".": {
@@ -52,9 +51,11 @@
 		"@changesets/cli": "^2.29.8",
 		"@swc/core": "1.11.24",
 		"@types/node": "22.15.19",
+		"@vitest/coverage-v8": "4.0.17",
 		"tsdown": "0.11.11",
 		"tsup": "8.5.0",
-		"typescript": "5.8.3"
+		"typescript": "5.8.3",
+		"vitest": "4.0.17"
 	},
 	"dependencies": {
 		"zod": "^4.2.1"
