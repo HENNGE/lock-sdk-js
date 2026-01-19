@@ -26,11 +26,13 @@ jobs:
 
       - name: Create Release PR or Publish
         id: changesets
-        uses: changeset/action@v1
+        uses: changesets/action@v1
         with:
           # Runs when there are pending changesets: bumps versions and creates PR
           version: pnpm version
           # Runs when no pending changesets exist (after version PR is merged): publishes to npm
+          # Note: `changeset publish` only publishes unpublished versions, so merges
+          # without changesets won't cause unintentional releases
           publish: pnpm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
