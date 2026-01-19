@@ -10,6 +10,10 @@
 		"type": "git",
 		"url": "git+https://github.com/HENNGE/lock-sdk-js.git"
 	},
+	"bugs": {
+		"url": "https://github.com/HENNGE/lock-sdk-js/issues"
+	},
+	"homepage": "https://github.com/HENNGE/lock-sdk-js#readme",
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -57,5 +61,10 @@
 	},
 	"dependencies": {
 		"zod": "4.3.5"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		]
 	}
 }
