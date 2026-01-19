@@ -35,7 +35,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          # Runs when there are pending changesets: bumps versions and creates PR
+          # Runs when there are pending changesets: bumps versions and creates/updates PR
           version: pnpm version
           # Runs when no pending changesets exist (after version PR is merged): publishes to npm
           # Note: `changeset publish` only publishes unpublished versions, so merges
