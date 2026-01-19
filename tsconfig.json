@@ -36,7 +36,8 @@
 		"outDir": "./.cache/tsbuild",
 		"incremental": true,
 		"declaration": true,
-		"emitDeclarationOnly": true
+		"emitDeclarationOnly": true,
+		"types": ["vitest/globals"]
 	},
 	"include": ["src"]
 }
