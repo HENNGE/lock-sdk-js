@@ -19,13 +19,13 @@ describe("setup", () => {
 			}),
 		});
 
-		const result = await setup("http://example.com");
+		const result = await setup("http://example.invalid");
 
 		expect(result).toEqual([
 			true,
 			{ digits: "123456", deviceType: "TestDevice" },
 		]);
-		expect(fetchMock).toHaveBeenCalledWith("http://example.com");
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid");
 	});
 
 	it("should retry on pending status and eventually succeed", async () => {
@@ -51,11 +51,11 @@ describe("setup", () => {
 				}),
 			});
 
-		const result = await setup("http://example.com");
+		const result = await setup("http://example.invalid");
 
 		expect(result).toEqual([true, { digits: "123456", deviceType: "TestDevice" }]);
 		expect(fetchMock).toHaveBeenCalledTimes(4);
-		expect(fetchMock).toHaveBeenCalledWith("http://example.com");
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid");
 	});
 
 	it("should return timeout error when server returns timeout", async () => {
@@ -64,7 +64,7 @@ describe("setup", () => {
 			json: async () => ({ status: "timeout" }),
 		});
 
-		const result = await setup("http://example.com");
+		const result = await setup("http://example.invalid");
 
 		expect(result).toEqual([false, { type: "timeout" }]);
 	});
@@ -76,7 +76,7 @@ describe("setup", () => {
 		};
 		fetchMock.mockResolvedValueOnce(errorResponse);
 
-		const result = await setup("http://example.com");
+		const result = await setup("http://example.invalid");
 
 		// The implementation returns the raw response object in the error
 		expect(result).toEqual([false, { type: "http", response: errorResponse }]);
@@ -106,7 +106,7 @@ describe("setup", () => {
 		fetchMock.mockReset();
 		setupMock(error);
 
-		const result = await setup("http://example.com");
+		const result = await setup("http://example.invalid");
 
 		expect(result).toEqual([false, { type: "unknown", error }]);
 	});
@@ -139,7 +139,7 @@ describe("setup", () => {
 			json: async () => response,
 		});
 
-		const result = await setup("http://example.com");
+		const result = await setup("http://example.invalid");
 		expectZodError(result);
 	});
 });
@@ -158,10 +158,10 @@ describe("auth", () => {
 			}),
 		});
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([true, { result: "accepted", digits: "123456" }]);
-		expect(fetchMock).toHaveBeenCalledWith("http://example.com");
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid");
 	});
 
 	it("should return rejected when server returns rejected", async () => {
@@ -172,7 +172,7 @@ describe("auth", () => {
 			}),
 		});
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([true, { result: "rejected" }]);
 	});
@@ -191,7 +191,7 @@ describe("auth", () => {
 				}),
 			});
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([true, { result: "accepted", digits: "123456" }]);
 		expect(fetchMock).toHaveBeenCalledTimes(2);
@@ -203,7 +203,7 @@ describe("auth", () => {
 			json: async () => ({ status: "timeout" }),
 		});
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([false, { type: "timeout" }]);
 	});
@@ -215,7 +215,7 @@ describe("auth", () => {
 		};
 		fetchMock.mockResolvedValueOnce(errorResponse);
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([false, { type: "http", response: errorResponse }]);
 	});
@@ -244,7 +244,7 @@ describe("auth", () => {
 		fetchMock.mockReset();
 		authMock(error);
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([false, { type: "unknown", error }]);
 	});
@@ -269,7 +269,7 @@ describe("auth", () => {
 			json: async () => response,
 		});
 
-		const result = await auth("http://example.com");
+		const result = await auth("http://example.invalid");
 		expectZodError(result);
 	});
 });
