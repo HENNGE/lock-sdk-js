@@ -30,17 +30,16 @@
 	"keywords": [],
 	"author": "HENNGE",
 	"license": "Apache-2.0",
-	"packageManager": "pnpm@10.10.0",
+	"packageManager": "pnpm@11.25.0",
 	"devDependencies": {
-		"@arethetypeswrong/cli": "0.18.1",
-		"@biomejs/biome": "1.9.4",
-		"@swc/core": "1.11.24",
-		"@types/node": "22.15.19",
-		"tsdown": "0.11.11",
-		"tsup": "8.5.0",
-		"typescript": "5.8.3"
+		"@arethetypeswrong/cli": "0.18.5",
+		"@biomejs/biome": "2.5.12",
+		"@types/node": "25.9.5",
+		"tsdown": "0.23.0",
+		"tsup": "8.5.1",
+		"typescript": "7.0.2"
 	},
 	"dependencies": {
-		"zod": "^4.2.1"
+		"zod": "4.5.4"
 	}
 }
