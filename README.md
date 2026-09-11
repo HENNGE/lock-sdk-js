@@ -4,8 +4,6 @@ A standardized, lightweight utility to interact with HENNGE Lock.
 
 ## 🚀 Usage
 
-Because this package is hosted on **GitHub Packages** and not the public npm registry, you need to configure your environment before installing.
-
 1. Install
 
     ```
@@ -17,7 +15,7 @@ Because this package is hosted on **GitHub Packages** and not the public npm reg
 2. Use in your JS application
 
 ```ts
-import { auth } from "@HENNGE/lock-sdk-js";
+import { auth } from "@hennge/lock-sdk-js";
 
 const [status, response] = await auth(url);
 ```
