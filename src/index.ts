@@ -219,9 +219,18 @@ async function fetchWrapper(
 		const data = await response.json();
 		return [true, data];
 	} catch (error) {
-		if (error instanceof Error && error.name === "AbortError") {
+		if (isAbortError(error)) {
 			return [false, { type: "abort" }];
 		}
 		return [false, { type: "unknown", error }];
 	}
+}
+
+function isAbortError(error: unknown): boolean {
+	return (
+        typeof error === "object" &&
+        error !== null &&
+        "name" in error &&
+        error.name === "AbortError"
+    );
 }
