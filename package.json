@@ -16,7 +16,9 @@
 	},
 	"unpkg": "./dist/index.global.js",
 	"jsdelivr": "./dist/index.global.js",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
