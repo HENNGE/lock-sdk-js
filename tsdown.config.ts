@@ -7,8 +7,6 @@ export default defineConfig({
 	format: ["esm"],
 	fixedExtension: false,
 	dts: true, // Generates .d.ts files
-	publint: true, // Lints package.json strictly on every build
-	attw: true, // Checks for TypeScript resolution errors on every build
 	sourcemap: true,
 	minify: false,
 });

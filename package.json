@@ -7,18 +7,21 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
-		"build": "pnpm typecheck && tsdown && tsup",
+		"build": "pnpm typecheck && tsdown && tsup && publint && pnpm check-types",
 		"typecheck": "tsc",
+		"check-types": "attw --pack . --profile esm-only",
 		"lint": "biome lint",
 		"check": "biome check",
 		"fix": "biome check --write --unsafe"
 	},
+	"unpkg": "./dist/index.global.js",
+	"jsdelivr": "./dist/index.global.js",
+	"files": ["dist"],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
-		},
-		"./global": "./dist/index.global.js"
+		}
 	},
 	"keywords": [],
 	"author": "HENNGE",
