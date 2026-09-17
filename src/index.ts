@@ -90,7 +90,7 @@ export interface SetupResult {
  * Initiates the setup process by making requests to the provided URL.
  * Continues polling until a valid response is received.
  *
- * @param url The endpoint to call for setup
+ * @param url Returned from the Setup Init endpoint of HENNGE Lock Server
  * @param options Optional. Pass `signal` from an AbortController to cancel the request.
  * @returns A Result containing either Setup data or an error
  */
@@ -135,10 +135,10 @@ export interface AuthRejected {
 export type AuthResult = AuthAccepted | AuthRejected;
 
 /**
- * Authenticates with the provided URL.
+ * Waits for the users response to a HENNGE Lock notification.
  * Continues polling until authentication is either accepted or rejected.
  *
- * @param url The endpoint to call for authentication
+ * @param url Returned from the Login Init endpoint of HENNGE Lock Server
  * @param options Optional. Pass `signal` from an AbortController to cancel the request.
  * @returns A Result containing either Auth data or an error
  */
@@ -166,7 +166,7 @@ export async function auth(
  * Repeatedly calls the provided URL until a definitive result is obtained.
  *
  * @param url The endpoint to call
- * @param terminalSchema The zod schema of the expected response data (success state)
+ * @param terminalSchema The final successful zod schema of the expected response data
  * @param transform A function that processes response data and determines the next action
  * @param signal Optional AbortSignal to cancel the operation
  * @returns A Result containing either the expected data or an error
