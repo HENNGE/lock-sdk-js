@@ -1,10 +1,10 @@
+import type { output, ZodMiniType } from "zod/mini";
 import {
 	discriminatedUnion,
 	literal,
 	object as zobject,
 	string as zstring,
 } from "zod/mini";
-import type { ZodMiniType, output } from "zod/mini";
 
 /**
  * A Result type representing either a successful operation with data T,
