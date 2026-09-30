@@ -1,14 +1,14 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": [
-		"github>HENNGE/renovate-config",
-		"customManagers:biomeVersions"
-	],
+	"extends": ["github>HENNGE/renovate-config", "customManagers:biomeVersions"],
 
 	// Only create regular update branches during working hours.
 	"schedule": ["* 10-18 * * 1-5"],
-		"prHourlyLimit": 0,
-		"prConcurrentLimit": 10,
+	"prHourlyLimit": 0,
+	"prConcurrentLimit": 10,
+
+	"dependencyDashboard": true,
+	"semanticCommitScope": "deps",
 
 	"osvVulnerabilityAlerts": true,
 	"vulnerabilityAlerts": {
