@@ -1,0 +1,35 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"github>HENNGE/renovate-config",
+		"customManagers:biomeVersions"
+	],
+
+	// Only create regular update branches during working hours.
+	"schedule": ["* 09-18 * * 1-5"],
+		"prHourlyLimit": 0,
+		"prConcurrentLimit": 10,
+
+	"osvVulnerabilityAlerts": true,
+	"vulnerabilityAlerts": {
+		"enabled": true,
+		"labels": ["security"],
+		"minimumReleaseAge": "0 days"
+	},
+
+	"enabledManagers": ["github-actions", "npm", "nvm", "custom.jsonata"],
+	"packageRules": [
+		{
+			"description": "Group GitHub Actions updates",
+			"matchManagers": ["github-actions"],
+			"groupName": "github actions",
+			"automerge": false
+		},
+		{
+			"description": "Group vitest updates",
+			"matchManagers": ["npm"],
+			"matchPackageNames": ["vitest", "@vitest/coverage-v8"],
+			"groupName": "vitest"
+		}
+	]
+}
