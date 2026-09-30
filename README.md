@@ -4,15 +4,15 @@ A standardized, lightweight utility to interact with HENNGE Lock.
 
 ## 🚀 Usage
 
-1. Install
+### Package Manager
 
-    ```
-    pnpm add @hennge/lock-sdk-js
-    // OR
-    pnpm install @hennge/lock-sdk-js
-    ```
+Install the package using your package manager of choice:
 
-2. Use in your JS application
+```sh
+pnpm add @hennge/lock-sdk-js
+```
+
+Import it in your JavaScript or TypeScript application:
 
 ```ts
 import { auth } from "@hennge/lock-sdk-js";
@@ -20,24 +20,23 @@ import { auth } from "@hennge/lock-sdk-js";
 const [ok, response] = await auth(url);
 ```
 
+### Script Tag
+
+Load the browser bundle from a CDN. The package API is available under
+`HENNGE.Lock`:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@hennge/lock-sdk-js@1/dist/index.global.js"></script>
+<script>
+    async function authenticate(url) {
+        const [ok, response] = await HENNGE.Lock.auth(url);
+        return { ok, response };
+    }
+</script>
+```
+
+Pin the URL to an exact package version when reproducible builds are required.
+
 ## 🏗️ Contributing
 
-This repository uses **Changesets** to manage versioning and releases.
-
-### Contribution Flow
-
-1. Create a branch and make your changes.
-2. Run the following command before committing:
-
-    ```
-    pnpm changeset
-    ```
-
-3. Follow the prompts to select the impact (patch, minor, major) and provide a description.
-4. Commit the generated `.md` file in the `.changeset` folder.
-
-### Release Process
-
-Once your PR is merged to main, a `Version Packages` PR will be automatically opened.
-
-Merging that PR will trigger the publication to GitHub Packages and generate a new entry in the [Releases](https://github.com/HENNGE/lock-sdk-js/releases) tab.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution and release guidelines.
