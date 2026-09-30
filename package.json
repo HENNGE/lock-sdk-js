@@ -1,7 +1,19 @@
 {
 	"name": "@hennge/lock-sdk-js",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"description": "TypeScript SDK for setting up HENNGE Lock",
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HENNGE/lock-sdk-js.git"
+	},
+	"bugs": {
+		"url": "https://github.com/HENNGE/lock-sdk-js/issues"
+	},
+	"homepage": "https://github.com/HENNGE/lock-sdk-js#readme",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"type": "module",
@@ -12,7 +24,9 @@
 		"check-types": "attw --pack . --profile esm-only",
 		"lint": "biome lint",
 		"check": "biome check",
-		"fix": "biome check --write --unsafe"
+		"fix": "biome check --write --unsafe",
+		"prepublishOnly": "pnpm build",
+		"release": "pnpm changeset publish"
 	},
 	"unpkg": "./dist/index.global.js",
 	"jsdelivr": "./dist/index.global.js",
@@ -32,6 +46,8 @@
 	"devDependencies": {
 		"@arethetypeswrong/cli": "0.18.5",
 		"@biomejs/biome": "2.5.12",
+		"@changesets/changelog-github": "1.0.1",
+		"@changesets/cli": "3.0.3",
 		"@swc/core": "1.16.2",
 		"@types/node": "24.13.4",
 		"publint": "0.3.24",

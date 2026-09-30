@@ -1,0 +1,46 @@
+name: Publish Package
+
+on:
+  push:
+    branches: [ main ]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Packages
+        run: pnpm i --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Create Release PR or Publish
+        id: changesets
+        uses: changesets/action@v2
+        with:
+          # Runs when there are pending changesets: bumps versions and creates/updates PR
+          version-script: pnpm changeset version
+          # Runs when no pending changesets exist (after version PR is merged): publishes to npm
+          # Note: `changeset publish` only publishes unpublished versions, so merges
+          # without changesets won't cause unintentional releases
+          publish-script: pnpm release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
