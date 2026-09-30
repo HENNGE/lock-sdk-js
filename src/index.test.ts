@@ -25,7 +25,9 @@ describe("setup", () => {
 			true,
 			{ digits: "123456", deviceType: "TestDevice" },
 		]);
-		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid");
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid", {
+			signal: undefined,
+		});
 	});
 
 	it("should retry on pending status and eventually succeed", async () => {
@@ -55,7 +57,9 @@ describe("setup", () => {
 
 		expect(result).toEqual([true, { digits: "123456", deviceType: "TestDevice" }]);
 		expect(fetchMock).toHaveBeenCalledTimes(4);
-		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid");
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid", {
+			signal: undefined,
+		});
 	});
 
 	it("should return timeout error when server returns timeout", async () => {
@@ -161,7 +165,9 @@ describe("auth", () => {
 		const result = await auth("http://example.invalid");
 
 		expect(result).toEqual([true, { result: "accepted", digits: "123456" }]);
-		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid");
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid", {
+			signal: undefined,
+		});
 	});
 
 	it("should return rejected when server returns rejected", async () => {
