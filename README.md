@@ -36,8 +36,12 @@ Load the browser bundle from a CDN. The package API is available under
 `HENNGE.Lock`. This bundle is transpiled to ES5:
 
 ```html
-<!-- Pin the URL to an exact package version when reproducible builds are required. -->
+<!-- jsDelivr -->
 <script src="https://cdn.jsdelivr.net/npm/@hennge/lock-sdk-js@1/dist/index.global.js"></script>
+
+<!-- Or unpkg -->
+<!-- <script src="https://unpkg.com/@hennge/lock-sdk-js@1/dist/index.global.js"></script> -->
+
 <script>
     async function authenticate(url) {
         const [ok, response] = await HENNGE.Lock.auth(url);
@@ -45,6 +49,8 @@ Load the browser bundle from a CDN. The package API is available under
     }
 </script>
 ```
+
+Pin the URL to an exact package version when reproducible builds are required.
 
 ## 🏗️ Contributing
 
