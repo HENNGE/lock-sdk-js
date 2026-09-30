@@ -11,21 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
       pull-requests: write
+      id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Restore Packages
+      - name: Install Packages
         run: pnpm i --frozen-lockfile
 
       - name: Lint
@@ -36,14 +37,13 @@ jobs:
 
       - name: Create Release PR or Publish
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           # Runs when there are pending changesets: bumps versions and creates/updates PR
-          version: pnpm version
+          version-script: pnpm changeset version
           # Runs when no pending changesets exist (after version PR is merged): publishes to npm
           # Note: `changeset publish` only publishes unpublished versions, so merges
           # without changesets won't cause unintentional releases
-          publish: pnpm publish
+          publish-script: pnpm release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

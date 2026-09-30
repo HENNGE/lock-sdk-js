@@ -14,59 +14,55 @@
 		"url": "https://github.com/HENNGE/lock-sdk-js/issues"
 	},
 	"homepage": "https://github.com/HENNGE/lock-sdk-js#readme",
-	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"type": "module",
+	"sideEffects": false,
 	"scripts": {
-		"build": "pnpm typecheck && tsdown && tsup && pnpm check-types",
+		"build": "pnpm typecheck && tsdown && tsup && publint && pnpm check-types",
 		"typecheck": "tsc",
-		"check-types": "attw --pack . --exclude-entrypoints global",
+		"check-types": "attw --pack . --profile esm-only",
 		"lint": "biome lint",
 		"check": "biome check",
 		"fix": "biome check --write --unsafe",
 		"prepublishOnly": "pnpm build",
-		"publish": "pnpm changeset publish",
+		"release": "pnpm changeset publish",
 		"test": "vitest",
 		"test:coverage": "vitest --coverage"
 	},
+	"unpkg": "./dist/index.global.js",
+	"jsdelivr": "./dist/index.global.js",
+	"files": [
+		"dist"
+	],
 	"exports": {
 		".": {
-			"require": {
-				"types": "./dist/index.d.cts",
-				"require": "./dist/index.cjs"
-			},
-			"import": {
-				"types": "./dist/index.d.ts",
-				"import": "./dist/index.js"
-			}
-		},
-		"./global": "./dist/index.global.js"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
 	},
-	"files": ["dist"],
 	"keywords": [],
 	"author": "HENNGE",
 	"license": "Apache-2.0",
-	"packageManager": "pnpm@10.10.0",
+	"packageManager": "pnpm@11.25.0",
 	"devDependencies": {
-		"@arethetypeswrong/cli": "0.18.1",
-		"@biomejs/biome": "1.9.4",
-		"@changesets/changelog-github": "^0.5.2",
-		"@changesets/cli": "^2.29.8",
-		"@swc/core": "1.11.24",
-		"@types/node": "22.15.19",
-		"@vitest/coverage-v8": "4.0.17",
-		"tsdown": "0.11.11",
-		"tsup": "8.5.0",
-		"typescript": "5.8.3",
-		"vitest": "4.0.17"
+		"@arethetypeswrong/cli": "0.18.5",
+		"@biomejs/biome": "2.5.12",
+		"@changesets/changelog-github": "1.0.1",
+		"@changesets/cli": "3.0.3",
+		"@swc/core": "1.16.2",
+		"@types/node": "24.13.4",
+		"@vitest/coverage-v8": "5.0.1",
+		"publint": "0.3.24",
+		"tsdown": "0.23.0",
+		"tsup": "8.5.1",
+		"typescript": "6.0.3",
+		"vitest": "5.0.1"
 	},
 	"dependencies": {
-		"zod": "4.3.5"
+		"zod": "4.5.4"
 	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"esbuild"
-		]
+	"engines": {
+		"node": ">=24.0.0"
 	}
 }
