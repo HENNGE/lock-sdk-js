@@ -115,6 +115,20 @@ describe("setup", () => {
 		expect(result).toEqual([false, { type: "unknown", error }]);
 	});
 
+	it("should return abort error when the request is aborted", async () => {
+		const controller = new AbortController();
+		fetchMock.mockRejectedValueOnce(new DOMException("Aborted", "AbortError"));
+
+		const result = await setup("http://example.invalid", {
+			signal: controller.signal,
+		});
+
+		expect(result).toEqual([false, { type: "abort" }]);
+		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid", {
+			signal: controller.signal,
+		});
+	});
+
 	it.each([
 		{
 			name: "status field is invalid",
