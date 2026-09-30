@@ -1,5 +1,11 @@
 # @hennge/lock-sdk-js
 
+## 1.1.0
+
+### Minor Changes
+
+- [#17](https://github.com/HENNGE/lock-sdk-js/pull/17) [`a28e38f`](https://github.com/HENNGE/lock-sdk-js/commit/a28e38f5d2c3c09a8a46ddcf62e4ee8a6ac011f0) Thanks [@hennge-renovate](https://github.com/apps/hennge-renovate)! - Update zod to 4.6.5
+
 ## 1.0.0
 
 ### Major Changes
