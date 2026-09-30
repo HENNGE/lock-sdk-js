@@ -1,6 +1,6 @@
 {
 	"name": "@hennge/lock-sdk-js",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "TypeScript SDK for setting up HENNGE Lock",
 	"publishConfig": {
 		"access": "public",
