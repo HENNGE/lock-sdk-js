@@ -4,6 +4,11 @@ A standardized, lightweight utility to interact with HENNGE Lock.
 
 ## 🚀 Usage
 
+> [!WARNING]
+> Neither build provides polyfills for platform APIs such as `fetch`, `Promise`,
+> or `AbortController`. Consumers must provide them when targeting environments
+> where those APIs are unavailable.
+
 ### Package Manager
 
 Install the package using your package manager of choice:
@@ -20,12 +25,18 @@ import { auth } from "@hennge/lock-sdk-js";
 const [ok, response] = await auth(url);
 ```
 
+> [!WARNING]
+> The package-manager build is ESM-only and targets modern JavaScript. Consumers
+> that support older environments must configure their bundler or transpiler to
+> downlevel this package to the required ECMAScript target, such as ES5.
+
 ### Script Tag
 
 Load the browser bundle from a CDN. The package API is available under
-`HENNGE.Lock`:
+`HENNGE.Lock`. This bundle is transpiled to ES5:
 
 ```html
+<!-- Pin the URL to an exact package version when reproducible builds are required. -->
 <script src="https://cdn.jsdelivr.net/npm/@hennge/lock-sdk-js@1/dist/index.global.js"></script>
 <script>
     async function authenticate(url) {
@@ -34,8 +45,6 @@ Load the browser bundle from a CDN. The package API is available under
     }
 </script>
 ```
-
-Pin the URL to an exact package version when reproducible builds are required.
 
 ## 🏗️ Contributing
 
