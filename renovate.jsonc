@@ -10,7 +10,6 @@
 	"reviewers": ["sirbully"],
 	"dependencyDashboard": true,
 	"semanticCommitScope": "deps",
-	"commitMessageSuffix": "dependencies",
 
 	"osvVulnerabilityAlerts": true,
 	"vulnerabilityAlerts": {
