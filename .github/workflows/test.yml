@@ -1,10 +1,10 @@
-name: Check code and test
+name: Test and build
 
 on:
   pull_request:
 
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,3 +21,5 @@ jobs:
         run: pnpm lint
       - name: Test
         run: pnpm test
+      - name: Build
+        run: pnpm build
