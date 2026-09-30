@@ -4,10 +4,7 @@ A standardized, lightweight utility to interact with HENNGE Lock.
 
 ## 🚀 Usage
 
-> [!WARNING]
-> Neither build provides polyfills for platform APIs such as `fetch`, `Promise`,
-> or `AbortController`. Consumers must provide them when targeting environments
-> where those APIs are unavailable.
+Neither build provides polyfills for platform APIs such as `fetch`, `Promise`, or `AbortController`. Consumers must provide them when targeting environments where those APIs are unavailable.
 
 ### Package Manager
 
@@ -25,7 +22,6 @@ import { auth } from "@hennge/lock-sdk-js";
 const [ok, response] = await auth(url);
 ```
 
-> [!WARNING]
 > The package-manager build is ESM-only and targets modern JavaScript. Consumers
 > that support older environments must configure their bundler or transpiler to
 > downlevel this package to the required ECMAScript target, such as ES5.
