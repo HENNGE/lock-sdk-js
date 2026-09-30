@@ -45,5 +45,3 @@ jobs:
           # Note: `changeset publish` only publishes unpublished versions, so merges
           # without changesets won't cause unintentional releases
           publish-script: pnpm release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
