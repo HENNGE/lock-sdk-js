@@ -19,7 +19,7 @@ jobs:
       comment-body: ${{ steps.pr-status.outputs.comment-body }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Generate Changesets status
         id: pr-status
