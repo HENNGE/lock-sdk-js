@@ -1,4 +1,4 @@
-import { setup, auth, type LockError } from "./index";
+import { auth, type LockError, setup } from "./index";
 
 // Mock fetch
 const fetchMock = vi.fn();
@@ -55,7 +55,10 @@ describe("setup", () => {
 
 		const result = await setup("http://example.invalid");
 
-		expect(result).toEqual([true, { digits: "123456", deviceType: "TestDevice" }]);
+		expect(result).toEqual([
+			true,
+			{ digits: "123456", deviceType: "TestDevice" },
+		]);
 		expect(fetchMock).toHaveBeenCalledTimes(4);
 		expect(fetchMock).toHaveBeenCalledWith("http://example.invalid", {
 			signal: undefined,
@@ -150,16 +153,19 @@ describe("setup", () => {
 				digits: "123456",
 			},
 		},
-	])("should return unknown error when the zod schema is invalid: $name", async ({ response }) => {
-		fetchMock.mockReset();
-		fetchMock.mockResolvedValueOnce({
-			status: 200,
-			json: async () => response,
-		});
+	])(
+		"should return unknown error when the zod schema is invalid: $name",
+		async ({ response }) => {
+			fetchMock.mockReset();
+			fetchMock.mockResolvedValueOnce({
+				status: 200,
+				json: async () => response,
+			});
 
-		const result = await setup("http://example.invalid");
-		expectZodError(result);
-	});
+			const result = await setup("http://example.invalid");
+			expectZodError(result);
+		},
+	);
 });
 
 describe("auth", () => {
@@ -282,16 +288,19 @@ describe("auth", () => {
 				status: "done",
 			},
 		},
-	])("should return unknown error when the zod schema is invalid: $name", async ({ response }) => {
-		fetchMock.mockReset();
-		fetchMock.mockResolvedValueOnce({
-			status: 200,
-			json: async () => response,
-		});
+	])(
+		"should return unknown error when the zod schema is invalid: $name",
+		async ({ response }) => {
+			fetchMock.mockReset();
+			fetchMock.mockResolvedValueOnce({
+				status: 200,
+				json: async () => response,
+			});
 
-		const result = await auth("http://example.invalid");
-		expectZodError(result);
-	});
+			const result = await auth("http://example.invalid");
+			expectZodError(result);
+		},
+	);
 });
 
 function isLockError(error: unknown): error is LockError {
@@ -299,7 +308,9 @@ function isLockError(error: unknown): error is LockError {
 		typeof error === "object" &&
 		error !== null &&
 		"type" in error &&
-		(error.type === "timeout" || error.type === "http" || error.type === "unknown")
+		(error.type === "timeout" ||
+			error.type === "http" ||
+			error.type === "unknown")
 	);
 }
 
