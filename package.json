@@ -60,7 +60,7 @@
 		"vitest": "5.0.2"
 	},
 	"dependencies": {
-		"zod": "4.5.4"
+		"zod": "4.6.5"
 	},
 	"engines": {
 		"node": ">=24.0.0"
