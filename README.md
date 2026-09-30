@@ -9,7 +9,7 @@ A standardized, lightweight utility to interact with HENNGE Lock.
     ```
     pnpm add @hennge/lock-sdk-js
     // OR
-    pnpm install
+    pnpm install @hennge/lock-sdk-js
     ```
 
 2. Use in your JS application
@@ -17,7 +17,7 @@ A standardized, lightweight utility to interact with HENNGE Lock.
 ```ts
 import { auth } from "@hennge/lock-sdk-js";
 
-const [status, response] = await auth(url);
+const [ok, response] = await auth(url);
 ```
 
 ## 🏗️ Contributing
@@ -38,6 +38,6 @@ This repository uses **Changesets** to manage versioning and releases.
 
 ### Release Process
 
-Once your PR is merged to main, a "Version Packages" PR will be automatically opened.
+Once your PR is merged to main, a `Version Packages` PR will be automatically opened.
 
 Merging that PR will trigger the publication to GitHub Packages and generate a new entry in the [Releases](https://github.com/HENNGE/lock-sdk-js/releases) tab.
