@@ -6,7 +6,7 @@
 	],
 
 	// Only create regular update branches during working hours.
-	"schedule": ["* 09-18 * * 1-5"],
+	"schedule": ["* 10-18 * * 1-5"],
 		"prHourlyLimit": 0,
 		"prConcurrentLimit": 10,
 
